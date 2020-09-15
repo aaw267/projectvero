@@ -12,4 +12,8 @@ Blockchain Application for Proving News Truth
 
 ## Commands
 
+If using pyenv:
 `{$PROJECT_PATH}/projectvero/venv/bin/python -m flask run`
+
+If using global python path:
+`python -m flask run`
