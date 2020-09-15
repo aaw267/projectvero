@@ -1,1 +1,8 @@
+# stuff to ignore that i hate
+
+# environmental crap
 .idea/
+
+# python crap
+__pycache__/
+
