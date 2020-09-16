@@ -5,7 +5,8 @@ import json
 from time import time  #this is pulling the lower object time from the time package
 from uuid import uuid4
 from textwrap import dedent
-from projectvero_flask_app.api.blockchain import Blockchain
+
+from blockchain import Blockchain
 
 app = Flask(__name__)
 node_identifier = str(uuid4()).replace('-', '')
