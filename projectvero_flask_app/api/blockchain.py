@@ -1,3 +1,6 @@
+import hashlib
+import json
+from time import time
 
 # author: @alexwerner
 class Blockchain(object):
@@ -5,7 +8,9 @@ class Blockchain(object):
         self.chain = []
         self.current_transactions = []
 
-    def new_block(self):
+        self.new_block(1, 100)
+
+    def new_block(self, previous_hash, proof):
         pass
 
     def new_transaction(self):
