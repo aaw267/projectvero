@@ -30,4 +30,5 @@ If using global python path:
 `git commit` to commit your changes.<br>
 `git push` to push your changes to the origin.<br>
 `git reset HEAD --hard` resets all code with no saves to your previous head.<br>
-`git log` shows you the commit log
+`git log` shows you the commit log.<br>
+`Q` to get out of git log.<br>
