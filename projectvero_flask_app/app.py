@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 import requests
 import hashlib
 import json
@@ -12,15 +12,18 @@ node_identifier = str(uuid4()).replace('-', '')
 
 blockchain = Blockchain()
 
-@app.route('/mine', methods = ['GET'])
+
+@app.route('/mine', methods=['GET'])
 def mine():
     return 'FUCK YOU'
 
-@app.route('/transactions/new', methods = ['POST'])
+
+@app.route('/transactions/new', methods=['POST'])
 def new_transaction():
     return "FUCK YOU x2"
 
-@app.route('/chain', methods = ['GET'])
+
+@app.route('/chain', methods=['GET'])
 def full_chain():
     response = {
         'chain': blockchain.chain,

@@ -2,16 +2,17 @@
 # author: @alexwerner
 import hashlib
 import json
-from time import time  #this is pulling the lower object time from the time package
+from time import time  # this is pulling the lower object time from the time package
 from uuid import uuid4
 
 class Blockchain(object):
     def __init__(self):
-        self.chain = [] #[] is an empty list - lists are the best part of python
+        self.chain = []
+        # [] is an empty list - lists are the best part of python
         self.current_transactions = []
-        self.new_block(1, 100)
+        self.new_block(100, 1)
 
-    def new_block(self, previous_hash = None, proof):
+    def new_block(self, proof, previous_hash = None):
         block = {
             'index': len(self.chain) + 1,
             'timestamp': time(),
@@ -33,8 +34,10 @@ class Blockchain(object):
 
     @staticmethod
     def hash(block):
-        block_string = json.dumps(block, sort_keys=True).encode() #takes the block dictionary and encodes it into a binary string which has the keys sorted alphabetically
-        return hashlib.sha256(block_string).hexdigest() #Creates a 256 bit hash of the block string
+        block_string = json.dumps(block, sort_keys=True).encode()
+        # takes the block dictionary and encodes it into a binary string which has the keys sorted alphabetically
+        return hashlib.sha256(block_string).hexdigest()
+        # Creates a 256 bit hash of the block string
 
     @property
     def last_block(self):
@@ -48,6 +51,6 @@ class Blockchain(object):
 
     @staticmethod
     def valid_proof(last_proof, proof):
-    guess = f'{last_proof}{proof}'.encode()
-    guess_hash = hashlib.sha256(guess).hexdigest()
-    return guess_hash[:4] == "0000"
+        guess = f'{last_proof}{proof}'.encode()
+        guess_hash = hashlib.sha256(guess).hexdigest()
+        return guess_hash[:4] == "0000"
