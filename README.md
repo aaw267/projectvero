@@ -32,3 +32,18 @@ If using global python path:
 `git reset HEAD --hard` resets all code with no saves to your previous head.<br>
 `git log` shows you the commit log.<br>
 `Q` to get out of git log.<br>
+
+## curl POST Command
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{
+ "sender": "d4ee26eee15148ee92c6cd394edd974e",
+ "recipient": "someone-other-address",
+ "amount": 5
+}' "http://localhost:5000/transactions/new"
+```
+
+## curl GET Commands
+`curl http://localhost:5000/mine`<br>
+OR <br>
+`curl http://localhost:5000/chain`
