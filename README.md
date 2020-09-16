@@ -42,8 +42,16 @@ curl -X POST -H "Content-Type: application/json" -d '{
  "amount": 5
 }' "http://localhost:5000/transactions/new"
 ```
+OR <br>
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{
+ "nodes": {"http://127.0.0.1:5001"} 
+}' "http://localhost:5000/nodes/register
+```
 
 ## curl GET Commands
 `curl http://localhost:5000/mine`<br>
 OR <br>
-`curl http://localhost:5000/chain`
+`curl http://localhost:5000/chain`<br>
+OR <br>
+`curl http://localhost:5000/resolve`
