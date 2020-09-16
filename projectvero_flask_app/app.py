@@ -8,6 +8,41 @@ node_identifier = str(uuid4()).replace('-', '')
 blockchain = Blockchain()
 
 
+@app.route('/nodes/register', methods=['POST'])
+def register_nodes():
+    values = request.get_json()
+
+    nodes = values.get('nodes')
+    if nodes is None:
+        return "Error: Please supply a valid list of nodes.", 400
+
+    [blockchain.register_node(node) for node in nodes]
+
+    response = {
+        'message': 'New nodes have been added.',
+        'total_nodes': list(blockchain.nodes)
+    }
+    return jsonify(response), 201
+
+
+@app.route('/nodes/resolve', methods=['GET'])
+def consensus():
+    replaced = blockchain.resolve_conflicts()
+
+    if replaced:
+        response = {
+            'message': 'Our chain has been replaced by a longer one.',
+            'new_chain': blockchain.chain
+        }
+    else:
+        response = {
+            'message': 'Our chain is authoritative.',
+            'chain': blockchain.chain
+        }
+
+    return jsonify(response), 200
+
+
 @app.route('/mine', methods=['GET'])
 def mine():
     last_block = blockchain.last_block

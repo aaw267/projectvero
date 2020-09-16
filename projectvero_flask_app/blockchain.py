@@ -2,6 +2,7 @@ import hashlib
 import json
 from time import time  # this is pulling the lower object time from the time package
 from urllib.parse import urlparse
+import requests
 
 
 # author: @alexwerner
@@ -17,7 +18,51 @@ class Blockchain(object):
         parsed_url = urlparse(address)
         self.nodes.add(parsed_url.netloc)
 
-    def
+    def valid_chain(self, chain):
+        last_block = chain[0]
+        current_index = 1
+
+        while current_index < len(chain):
+            block = chain[current_index]
+            print(f'{last_block}')
+            print(f'{block}')
+            print("\n------------------------\n")
+
+            if block['previous_hash'] != self.hash(last_block):
+                return False
+
+            if not self.valid_proof(last_block['proof'], block['proof']):
+                return False
+
+            last_block = block
+            current_index += 1
+
+        return True
+
+    def resolve_conflicts(self):
+        new_chain = None
+
+        # looking for a chain longer than ours
+        max_length = len(self.chain)
+
+        for node in self.nodes:
+            response = requests.get(f'http://{node}/chain')
+
+            if response.status_code == 200:
+                length = response.json()['length']
+                chain = response.json()['chain']
+
+                if length > max_length and self.valid_chain(chain):
+                    max_length = length
+                    new_chain = chain
+
+        if new_chain:
+            self.chain = new_chain
+            return True
+        else:
+            return False
+
+
 
     def new_block(self, proof, previous_hash = None):
         block = {
