@@ -1,16 +1,23 @@
-
-# author: @alexwerner
 import hashlib
 import json
 from time import time  # this is pulling the lower object time from the time package
-from uuid import uuid4
+from urllib.parse import urlparse
 
+
+# author: @alexwerner
 class Blockchain(object):
     def __init__(self):
         self.chain = []
         # [] is an empty list - lists are the best part of python
         self.current_transactions = []
         self.new_block(100, 1)
+        self.nodes = set()
+
+    def register_node(self, address):
+        parsed_url = urlparse(address)
+        self.nodes.add(parsed_url.netloc)
+
+    def
 
     def new_block(self, proof, previous_hash = None):
         block = {
@@ -24,10 +31,10 @@ class Blockchain(object):
         self.chain.append(block)
         return block
 
-    def new_transaction(self, sender, recepient, amount):
+    def new_transaction(self, sender, recipient, amount):
         self.current_transactions.append({
             'sender': sender,
-            'recepient': recepient,
+            'recipient': recipient,
             'amount': amount
             })
         return self.last_block['index'] + 1
